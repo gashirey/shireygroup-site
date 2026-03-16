@@ -1,0 +1,57 @@
+<h1>SEG Contractor Deployment Alerts</h1>
+
+<p>
+Enroll to receive SMS alerts for storm deployment opportunities,
+availability checks, and logistics updates.
+</p>
+
+<form id="smsForm">
+
+<input name="first_name" placeholder="First Name" required>
+
+<input name="last_name" placeholder="Last Name" required>
+
+<input name="phone" placeholder="Mobile Phone" required>
+
+<input name="trade" placeholder="Primary Trade">
+
+<input name="state" placeholder="State">
+
+<label>
+<input type="checkbox" name="consent" required>
+I agree to receive SMS communications from Shirey Enterprise Group regarding
+contractor deployment opportunities and operational alerts.
+</label>
+
+<p>
+Message frequency varies. Message and data rates may apply.
+Reply STOP to unsubscribe. Reply HELP for help.
+</p>
+
+<button type="submit">Enroll</button>
+
+</form>
+
+<div id="result"></div>
+
+<script>
+
+document.getElementById('smsForm').addEventListener('submit', async function(e){
+
+e.preventDefault();
+
+const data = Object.fromEntries(new FormData(this));
+
+const res = await fetch('/api/sms-enroll', {
+method: 'POST',
+headers: {'Content-Type':'application/json'},
+body: JSON.stringify(data)
+});
+
+const msg = await res.text();
+
+document.getElementById('result').innerText = msg;
+
+});
+
+</script>
