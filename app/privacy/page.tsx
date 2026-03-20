@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import SiteLayout from '../components/SiteLayout'
 
 export const metadata = {
   title: 'Privacy Policy | Shirey Enterprise Group',
@@ -55,19 +55,9 @@ const sections = [
 
 export default function Privacy() {
   return (
-    <main className="min-h-screen px-4 py-16" style={{ backgroundColor: '#0D1B2A' }}>
+    <SiteLayout>
+    <main className="px-4 py-16">
       <div className="mx-auto w-full max-w-2xl">
-
-        {/* Logo */}
-        <div className="flex justify-center mb-10">
-          <Image
-            src="/seg_logo_color_full.png"
-            alt="Shirey Enterprise Group"
-            width={200}
-            height={80}
-            className="object-contain"
-          />
-        </div>
 
         {/* Page title */}
         <div className="mb-10">
@@ -97,14 +87,8 @@ export default function Privacy() {
         {/* Divider */}
         <div className="my-10 h-px" style={{ backgroundColor: 'rgba(196,137,26,0.2)' }} />
 
-        {/* Footer */}
-        <div className="text-center text-xs">
-          <a href="/sms-policy" className="hover:underline transition-colors" style={{ color: '#7A6E62' }}>
-            SMS Policy
-          </a>
-        </div>
-
       </div>
     </main>
+    </SiteLayout>
   )
 }

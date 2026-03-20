@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import SiteLayout from '../components/SiteLayout'
 
 export const metadata = {
   title: 'SMS Communications Policy | Shirey Enterprise Group',
@@ -50,19 +50,9 @@ const sections = [
 
 export default function SmsPolicy() {
   return (
-    <main className="min-h-screen px-4 py-16" style={{ backgroundColor: '#0D1B2A' }}>
+    <SiteLayout>
+    <main className="px-4 py-16">
       <div className="mx-auto w-full max-w-2xl">
-
-        {/* Logo */}
-        <div className="flex justify-center mb-10">
-          <Image
-            src="/seg_logo_color_full.png"
-            alt="Shirey Enterprise Group"
-            width={200}
-            height={80}
-            className="object-contain"
-          />
-        </div>
 
         {/* Page title */}
         <div className="mb-10">
@@ -86,21 +76,8 @@ export default function SmsPolicy() {
           ))}
         </div>
 
-        {/* Divider */}
-        <div className="my-10 h-px" style={{ backgroundColor: 'rgba(196,137,26,0.2)' }} />
-
-        {/* Footer */}
-        <div className="text-center text-xs" style={{ color: '#4A4035' }}>
-          <a href="/sms-opt-in" className="hover:underline transition-colors" style={{ color: '#7A6E62' }}>
-            SMS Opt-In
-          </a>
-          <span className="mx-2">·</span>
-          <a href="/privacy" className="hover:underline transition-colors" style={{ color: '#7A6E62' }}>
-            Privacy Policy
-          </a>
-        </div>
-
       </div>
     </main>
+    </SiteLayout>
   )
 }
