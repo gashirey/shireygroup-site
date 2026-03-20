@@ -3,6 +3,9 @@
 import { useState } from 'react'
 import SiteLayout from '../components/SiteLayout'
 
+const dmSans = { fontFamily: "'DM Sans', sans-serif" }
+const barlowCondensed = { fontFamily: "'Barlow Condensed', sans-serif" }
+
 export default function SmsOptIn() {
   const [formData, setFormData] = useState({
     first_name: '',
@@ -44,14 +47,12 @@ export default function SmsOptIn() {
 
   return (
     <SiteLayout>
-      <main className="flex items-center justify-center px-4 py-12">
+      <main style={{ maxWidth: '768px', margin: '0 auto', width: '100%', padding: '48px 32px', boxSizing: 'border-box' }}>
         {submitted ? (
+
           /* Success state */
-          <div className="text-center max-w-md w-full">
-            <div
-              className="rounded-lg px-8 py-8 border"
-              style={{ borderColor: '#C4891A', backgroundColor: 'rgba(196,137,26,0.08)' }}
-            >
+          <div style={{ maxWidth: '440px', margin: '0 auto', textAlign: 'center' }}>
+            <div className="rounded-xl border border-[#E5E7EB] bg-[#F7F7F5] px-8 py-10 shadow-sm">
               <svg
                 className="mx-auto mb-4 h-12 w-12"
                 style={{ color: '#C4891A' }}
@@ -62,137 +63,185 @@ export default function SmsOptIn() {
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <h2 className="text-2xl font-bold mb-3" style={{ color: '#E8E0D0' }}>
+              <h2
+                className="text-2xl font-bold mb-3"
+                style={{ color: '#0D1B2A', ...barlowCondensed }}
+              >
                 You&rsquo;re signed up.
               </h2>
-              <p className="text-sm leading-relaxed" style={{ color: '#A89880' }}>
-                You&rsquo;ll receive SMS alerts from SEG for deployment opportunities and operational updates. Reply{' '}
-                <span className="font-semibold" style={{ color: '#E8E0D0' }}>STOP</span> at any time to unsubscribe.
+              <p className="text-sm leading-relaxed text-[#6B7280]" style={dmSans}>
+                You&rsquo;ll receive SMS alerts from SEG for deployment opportunities and operational updates.
+                Reply <span className="font-semibold text-[#0D1B2A]">STOP</span> at any time to unsubscribe.
               </p>
             </div>
           </div>
+
         ) : (
+
           /* Opt-in form */
-          <div className="w-full max-w-lg">
+          <div style={{ maxWidth: '520px', margin: '0 auto', width: '100%' }}>
 
-            {/* Header copy */}
-            <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold tracking-tight mb-4" style={{ color: '#E8E0D0' }}>
-                SEG Deployment Alerts
-              </h1>
-              <p className="text-base leading-relaxed mb-4" style={{ color: '#A89880' }}>
-                Shirey Enterprise Group fields independent contractors into storm response and utility base camp
-                deployments across the U.S. through our partner Recovery Logistics (RLI).
-              </p>
-              <p className="text-sm leading-relaxed" style={{ color: '#7A6E62' }}>
-                SMS alerts notify our team of incoming deployment opportunities, standby notices, and stand-down
-                updates. Message frequency varies — periods may be quiet for weeks, then multiple messages in a
-                single day during active events.
-              </p>
-            </div>
+            {/* Single card wrapping header + form */}
+            <div style={{
+              backgroundColor: '#ffffff',
+              border: '1px solid #E5E7EB',
+              borderTop: '3px solid #C4891A',
+              borderRadius: '12px',
+              boxShadow: '0 2px 12px rgba(0,0,0,0.07)',
+              overflow: 'hidden',
+            }}>
 
-            {/* Form card */}
-            <div
-              className="rounded-xl border p-8"
-              style={{ backgroundColor: 'rgba(255,255,255,0.04)', borderColor: 'rgba(196,137,26,0.3)' }}
-            >
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+              {/* Header section */}
+              <div style={{
+                padding: '28px 36px 24px',
+                textAlign: 'center',
+                borderBottom: '1px solid #F3F4F6',
+                backgroundColor: '#FAFAFA',
+              }}>
+                <h1 style={{
+                  color: '#0D1B2A',
+                  fontSize: '28px',
+                  fontWeight: 700,
+                  lineHeight: 1.15,
+                  marginBottom: '10px',
+                  ...barlowCondensed,
+                }}>
+                  Stay Ready. Stay Informed.
+                </h1>
+                <p style={{ color: '#6B7280', fontSize: '13px', lineHeight: 1.65, margin: 0, ...dmSans }}>
+                  SMS alerts go out when deployment windows open, when standby is called, and when events stand
+                  down. We also check in periodically throughout the year to keep our team current — even when
+                  things are quiet. No marketing. No noise. Just the information you need, when you need it.
+                </p>
+              </div>
 
-                {/* Name row */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#A89880' }}>
-                      First Name
+              {/* Form section */}
+              <div style={{ padding: '28px 36px 32px' }}>
+                <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+
+                  {/* Name row */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                    {[
+                      { label: 'First Name', key: 'first_name', placeholder: 'Jane' },
+                      { label: 'Last Name',  key: 'last_name',  placeholder: 'Smith' },
+                    ].map(({ label, key, placeholder }) => (
+                      <div key={key} style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                        <label style={{
+                          fontSize: '11px',
+                          fontWeight: 600,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.06em',
+                          color: '#6B7280',
+                          ...dmSans,
+                        }}>
+                          {label}
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          placeholder={placeholder}
+                          value={formData[key as 'first_name' | 'last_name']}
+                          onChange={e => setFormData({ ...formData, [key]: e.target.value })}
+                          style={{
+                            backgroundColor: '#ffffff',
+                            border: '1px solid #D1D5DB',
+                            borderRadius: '6px',
+                            padding: '9px 14px',
+                            fontSize: '14px',
+                            color: '#0D1B2A',
+                            outline: 'none',
+                            ...dmSans,
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Phone */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <label style={{
+                      fontSize: '11px',
+                      fontWeight: 600,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.06em',
+                      color: '#6B7280',
+                      ...dmSans,
+                    }}>
+                      Mobile Phone
                     </label>
                     <input
-                      type="text"
+                      type="tel"
                       required
-                      placeholder="Jane"
-                      value={formData.first_name}
-                      onChange={e => setFormData({ ...formData, first_name: e.target.value })}
-                      className="rounded-md px-4 py-2.5 text-sm outline-none focus:ring-2 transition"
+                      placeholder="(555) 000-0000"
+                      value={formData.phone}
+                      onChange={e => setFormData({ ...formData, phone: e.target.value })}
                       style={{
-                        backgroundColor: 'rgba(255,255,255,0.07)',
-                        border: '1px solid rgba(196,137,26,0.25)',
-                        color: '#E8E0D0',
+                        backgroundColor: '#ffffff',
+                        border: '1px solid #D1D5DB',
+                        borderRadius: '6px',
+                        padding: '9px 14px',
+                        fontSize: '14px',
+                        color: '#0D1B2A',
+                        outline: 'none',
+                        ...dmSans,
                       }}
                     />
                   </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#A89880' }}>
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Smith"
-                      value={formData.last_name}
-                      onChange={e => setFormData({ ...formData, last_name: e.target.value })}
-                      className="rounded-md px-4 py-2.5 text-sm outline-none focus:ring-2 transition"
-                      style={{
-                        backgroundColor: 'rgba(255,255,255,0.07)',
-                        border: '1px solid rgba(196,137,26,0.25)',
-                        color: '#E8E0D0',
-                      }}
-                    />
-                  </div>
-                </div>
 
-                {/* Phone */}
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider" style={{ color: '#A89880' }}>
-                    Mobile Phone
+                  {/* Divider */}
+                  <div style={{ height: '1px', backgroundColor: '#F3F4F6', margin: '2px 0' }} />
+
+                  {/* Consent */}
+                  <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      checked={consent}
+                      onChange={e => {
+                        setConsent(e.target.checked)
+                        if (error) setError('')
+                      }}
+                      style={{ marginTop: '2px', width: '15px', height: '15px', flexShrink: 0, accentColor: '#C4891A', cursor: 'pointer' }}
+                    />
+                    <span style={{ fontSize: '12px', lineHeight: 1.65, color: '#6B7280', ...dmSans }}>
+                      I agree to receive SMS messages from Shirey Enterprise Group (SEG) regarding deployment
+                      opportunities, operational updates, and periodic roster check-ins. Reply STOP to unsubscribe.
+                      Reply HELP for help. Msg &amp; data rates may apply.
+                    </span>
                   </label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="(555) 000-0000"
-                    value={formData.phone}
-                    onChange={e => setFormData({ ...formData, phone: e.target.value })}
-                    className="rounded-md px-4 py-2.5 text-sm outline-none focus:ring-2 transition"
-                    style={{
-                      backgroundColor: 'rgba(255,255,255,0.07)',
-                      border: '1px solid rgba(196,137,26,0.25)',
-                      color: '#E8E0D0',
-                    }}
-                  />
-                </div>
 
-                {/* Consent */}
-                <label className="flex items-start gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={consent}
-                    onChange={e => {
-                      setConsent(e.target.checked)
-                      if (error) setError('')
-                    }}
-                    className="mt-0.5 h-4 w-4 shrink-0 rounded accent-amber-500 cursor-pointer"
-                  />
-                  <span className="text-xs leading-relaxed" style={{ color: '#7A6E62' }}>
-                    I agree to receive SMS messages from Shirey Enterprise Group (SEG) regarding deployment
-                    opportunities and operational updates. Reply STOP to unsubscribe. Reply HELP for help.
-                    Msg &amp; data rates may apply.
-                  </span>
-                </label>
+                  {/* Error */}
+                  {error && (
+                    <p style={{ fontSize: '13px', fontWeight: 500, color: '#DC2626', margin: 0, ...dmSans }}>
+                      {error}
+                    </p>
+                  )}
 
-                {/* Error */}
-                {error && (
-                  <p className="text-sm font-medium" style={{ color: '#E05252' }}>
-                    {error}
-                  </p>
-                )}
+                  {/* Submit — centered */}
+                  <div style={{ textAlign: 'center', paddingTop: '4px' }}>
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      style={{
+                        backgroundColor: '#C4891A',
+                        color: '#ffffff',
+                        border: 'none',
+                        borderRadius: '6px',
+                        padding: '11px 36px',
+                        fontSize: '14px',
+                        fontWeight: 600,
+                        cursor: loading ? 'not-allowed' : 'pointer',
+                        opacity: loading ? 0.6 : 1,
+                        letterSpacing: '0.02em',
+                        ...dmSans,
+                      }}
+                    >
+                      {loading ? 'Submitting…' : 'Sign Up for Alerts'}
+                    </button>
+                  </div>
 
-                {/* Submit */}
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="mt-1 rounded-md px-6 py-3 text-sm font-semibold tracking-wide transition-opacity disabled:opacity-60"
-                  style={{ backgroundColor: '#C4891A', color: '#0D1B2A' }}
-                >
-                  {loading ? 'Submitting…' : 'Sign Up for Alerts'}
-                </button>
-              </form>
+                </form>
+              </div>
+
             </div>
 
           </div>

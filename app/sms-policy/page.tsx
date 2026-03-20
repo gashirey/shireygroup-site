@@ -4,6 +4,9 @@ export const metadata = {
   title: 'SMS Communications Policy | Shirey Enterprise Group',
 }
 
+const dm = { fontFamily: "'DM Sans', sans-serif" }
+const bc = { fontFamily: "'Barlow Condensed', sans-serif" }
+
 const sections = [
   {
     heading: 'Program Description',
@@ -11,7 +14,7 @@ const sections = [
   },
   {
     heading: 'Message Frequency',
-    body: 'Message frequency varies based on active field events. During inactive periods you may receive no messages for weeks at a time. During active deployment events you may receive multiple messages in a single day. All messages are operationally relevant — standby notices, mobilization alerts, or stand-down confirmations.',
+    body: 'Message frequency varies based on active field events. During inactive periods you may receive no messages for weeks at a time. During active deployment events you may receive multiple messages in a single day. All messages are operationally relevant — standby notices, mobilization alerts, stand-down confirmations, or periodic roster check-ins.',
   },
   {
     heading: 'How to Opt In',
@@ -25,13 +28,9 @@ const sections = [
     heading: 'Help',
     body: (
       <>
-        Reply <span style={{ color: '#E8E0D0' }} className="font-semibold">HELP</span> to any message for assistance.
+        Reply <strong style={{ color: '#0D1B2A', fontWeight: 600 }}>HELP</strong> to any message for assistance.
         You may also contact us directly at{' '}
-        <a
-          href="mailto:gshirey@gmail.com"
-          className="underline underline-offset-2 transition-opacity hover:opacity-70"
-          style={{ color: '#C4891A' }}
-        >
+        <a href="mailto:gshirey@gmail.com" style={{ color: '#C4891A', textDecoration: 'underline' }}>
           gshirey@gmail.com
         </a>
         .
@@ -51,33 +50,47 @@ const sections = [
 export default function SmsPolicy() {
   return (
     <SiteLayout>
-    <main className="px-4 py-16">
-      <div className="mx-auto w-full max-w-2xl">
+      <main style={{ maxWidth: '768px', margin: '0 auto', width: '100%', padding: '48px 32px', boxSizing: 'border-box' }}>
+        <div style={{
+          backgroundColor: '#ffffff',
+          border: '1px solid #E5E7EB',
+          borderTop: '3px solid #C4891A',
+          borderRadius: '12px',
+          boxShadow: '0 2px 12px rgba(0,0,0,0.07)',
+          overflow: 'hidden',
+        }}>
 
-        {/* Page title */}
-        <div className="mb-10">
-          <h1 className="text-3xl font-bold tracking-tight mb-1" style={{ color: '#E8E0D0' }}>
-            SMS Communications Policy
-          </h1>
-          <div className="mt-3 h-px w-16" style={{ backgroundColor: '#C4891A' }} />
+          {/* Header zone */}
+          <div style={{ padding: '28px 36px 24px', borderBottom: '1px solid #F3F4F6', backgroundColor: '#FAFAFA' }}>
+            <h1 style={{ color: '#0D1B2A', fontSize: '28px', fontWeight: 700, lineHeight: 1.15, margin: 0, ...bc }}>
+              SMS Communications Policy
+            </h1>
+          </div>
+
+          {/* Content zone */}
+          <div style={{ padding: '28px 36px 36px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            {sections.map(({ heading, body }, i) => (
+              <section key={i}>
+                <h2 style={{
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.07em',
+                  color: '#C4891A',
+                  marginBottom: '6px',
+                  ...dm,
+                }}>
+                  {heading}
+                </h2>
+                <p style={{ fontSize: '14px', lineHeight: 1.65, color: '#6B7280', margin: 0, ...dm }}>
+                  {body}
+                </p>
+              </section>
+            ))}
+          </div>
+
         </div>
-
-        {/* Sections */}
-        <div className="flex flex-col gap-8">
-          {sections.map(({ heading, body }, i) => (
-            <section key={i}>
-              <h2 className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#C4891A' }}>
-                {heading}
-              </h2>
-              <p className="text-sm leading-relaxed" style={{ color: '#A89880' }}>
-                {body}
-              </p>
-            </section>
-          ))}
-        </div>
-
-      </div>
-    </main>
+      </main>
     </SiteLayout>
   )
 }
