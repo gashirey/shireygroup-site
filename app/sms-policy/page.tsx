@@ -28,11 +28,11 @@ const sections = [
         Reply <span style={{ color: '#E8E0D0' }} className="font-semibold">HELP</span> to any message for assistance.
         You may also contact us directly at{' '}
         <a
-          href="mailto:george@shireyegroup.com"
+          href="mailto:gshirey@gmail.com"
           className="underline underline-offset-2 transition-opacity hover:opacity-70"
           style={{ color: '#C4891A' }}
         >
-          george@shireyegroup.com
+          gshirey@gmail.com
         </a>
         .
       </>

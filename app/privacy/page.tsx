@@ -25,11 +25,11 @@ const sections = [
         <span className="font-semibold" style={{ color: '#E8E0D0' }}>STOP</span> to any message. To request deletion
         of your personal data, contact us at{' '}
         <a
-          href="mailto:george@shireyegroup.com"
+          href="mailto:gshirey@gmail.com"
           className="underline underline-offset-2 transition-opacity hover:opacity-70"
           style={{ color: '#C4891A' }}
         >
-          george@shireyegroup.com
+          gshirey@gmail.com
         </a>
         . We will respond to verified deletion requests within a reasonable timeframe.
       </>
@@ -42,11 +42,11 @@ const sections = [
         Shirey Enterprise Group (SEG)
         <br />
         <a
-          href="mailto:george@shireyegroup.com"
+          href="mailto:gshirey@gmail.com"
           className="underline underline-offset-2 transition-opacity hover:opacity-70"
           style={{ color: '#C4891A' }}
         >
-          george@shireyegroup.com
+          gshirey@gmail.com
         </a>
       </>
     ),

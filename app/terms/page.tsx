@@ -43,11 +43,11 @@ const sections = [
         Shirey Enterprise Group (SEG)
         <br />
         <a
-          href="mailto:george@shireyegroup.com"
+          href="mailto:gshirey@gmail.com"
           className="underline underline-offset-2 transition-opacity hover:opacity-70"
           style={{ color: '#C4891A' }}
         >
-          george@shireyegroup.com
+          gshirey@gmail.com
         </a>
       </>
     ),
