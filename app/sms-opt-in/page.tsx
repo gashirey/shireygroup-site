@@ -30,7 +30,7 @@ export default function SmsOptIn() {
       const res = await fetch('/api/opt-in', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, user_agent: navigator.userAgent }),
       })
 
       if (res.ok) {
