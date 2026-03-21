@@ -14,39 +14,45 @@ export default function SmsOptIn() {
   })
   const [consent, setConsent] = useState(false)
   const [submitted, setSubmitted] = useState(false)
-  const [notice, setNotice] = useState('')   // amber — consent prompt
-  const [error, setError] = useState('')     // red — API/network errors
+  const [enrolled, setEnrolled] = useState(false)  // true only when DB write succeeded
+  const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setNotice('')
     setError('')
 
-    if (!consent) {
-      setNotice('To receive SMS alerts, please check the consent box and resubmit.')
+    // Checkbox checked but no phone — only blocking validation
+    if (consent && !formData.phone.trim()) {
+      setError('Please enter your mobile phone number to sign up for SMS alerts.')
       return
     }
 
-    setLoading(true)
-
-    try {
-      const res = await fetch('/api/opt-in', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, user_agent: navigator.userAgent }),
-      })
-
-      if (res.ok) {
-        setSubmitted(true)
-      } else {
-        setError('Something went wrong. Please try again.')
+    // Consent given + phone present → enroll via API
+    if (consent && formData.phone.trim()) {
+      setLoading(true)
+      try {
+        const res = await fetch('/api/opt-in', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...formData, user_agent: navigator.userAgent }),
+        })
+        if (res.ok) {
+          setEnrolled(true)
+        } else {
+          setError('Something went wrong. Please try again.')
+          return
+        }
+      } catch {
+        setError('Network error. Please check your connection and try again.')
+        return
+      } finally {
+        setLoading(false)
       }
-    } catch {
-      setError('Network error. Please check your connection and try again.')
-    } finally {
-      setLoading(false)
     }
+
+    // Always show success screen (enrolled or not)
+    setSubmitted(true)
   }
 
   return (
@@ -56,10 +62,16 @@ export default function SmsOptIn() {
 
           /* Success state */
           <div style={{ maxWidth: '440px', margin: '0 auto', textAlign: 'center' }}>
-            <div className="rounded-xl border border-[#E5E7EB] bg-[#F7F7F5] px-8 py-10 shadow-sm">
+            <div style={{
+              backgroundColor: '#F9FAFB',
+              border: '1px solid #E5E7EB',
+              borderTop: '3px solid #C4891A',
+              borderRadius: '12px',
+              padding: '40px 32px',
+              boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+            }}>
               <svg
-                className="mx-auto mb-4 h-12 w-12"
-                style={{ color: '#C4891A' }}
+                style={{ display: 'block', margin: '0 auto 16px', color: '#C4891A', width: '48px', height: '48px' }}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -67,16 +79,26 @@ export default function SmsOptIn() {
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <h2
-                className="text-2xl font-bold mb-3"
-                style={{ color: '#0D1B2A', ...barlowCondensed }}
-              >
-                You&rsquo;re signed up.
-              </h2>
-              <p className="text-sm leading-relaxed text-[#6B7280]" style={dmSans}>
-                You&rsquo;ll receive SMS alerts from SEG for deployment opportunities and operational updates.
-                Reply <span className="font-semibold text-[#0D1B2A]">STOP</span> at any time to unsubscribe.
-              </p>
+              {enrolled ? (
+                <>
+                  <h2 style={{ color: '#0D1B2A', fontSize: '24px', fontWeight: 700, marginBottom: '12px', ...barlowCondensed }}>
+                    You&rsquo;re signed up.
+                  </h2>
+                  <p style={{ color: '#6B7280', fontSize: '14px', lineHeight: 1.65, margin: 0, ...dmSans }}>
+                    You&rsquo;ll receive SMS alerts from SEG for deployment opportunities and operational updates.
+                    Reply <strong style={{ color: '#0D1B2A' }}>STOP</strong> at any time to unsubscribe.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h2 style={{ color: '#0D1B2A', fontSize: '24px', fontWeight: 700, marginBottom: '12px', ...barlowCondensed }}>
+                    Form received.
+                  </h2>
+                  <p style={{ color: '#6B7280', fontSize: '14px', lineHeight: 1.65, margin: 0, ...dmSans }}>
+                    To receive SMS deployment alerts, check the consent box and resubmit with your mobile number.
+                  </p>
+                </>
+              )}
             </div>
           </div>
 
@@ -202,7 +224,6 @@ export default function SmsOptIn() {
                       checked={consent}
                       onChange={e => {
                         setConsent(e.target.checked)
-                        if (notice) setNotice('')
                         if (error) setError('')
                       }}
                       style={{ marginTop: '2px', width: '15px', height: '15px', flexShrink: 0, accentColor: '#C4891A', cursor: 'pointer' }}
@@ -214,14 +235,7 @@ export default function SmsOptIn() {
                     </span>
                   </label>
 
-                  {/* Consent notice (amber) */}
-                  {notice && (
-                    <p style={{ fontSize: '13px', fontWeight: 500, color: '#92400E', backgroundColor: '#FEF3C7', border: '1px solid #FDE68A', borderRadius: '6px', padding: '10px 14px', margin: 0, lineHeight: 1.5, ...dmSans }}>
-                      {notice}
-                    </p>
-                  )}
-
-                  {/* API/network error (red) */}
+                  {/* Validation / API error */}
                   {error && (
                     <p style={{ fontSize: '13px', fontWeight: 500, color: '#DC2626', margin: 0, ...dmSans }}>
                       {error}
