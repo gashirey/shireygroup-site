@@ -14,17 +14,21 @@ export default function SmsOptIn() {
   })
   const [consent, setConsent] = useState(false)
   const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState('')
+  const [notice, setNotice] = useState('')   // amber — consent prompt
+  const [error, setError] = useState('')     // red — API/network errors
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setNotice('')
+    setError('')
+
     if (!consent) {
-      setError('You must agree to receive SMS messages to continue.')
+      setNotice('To receive SMS alerts, please check the consent box and resubmit.')
       return
     }
+
     setLoading(true)
-    setError('')
 
     try {
       const res = await fetch('/api/opt-in', {
@@ -198,6 +202,7 @@ export default function SmsOptIn() {
                       checked={consent}
                       onChange={e => {
                         setConsent(e.target.checked)
+                        if (notice) setNotice('')
                         if (error) setError('')
                       }}
                       style={{ marginTop: '2px', width: '15px', height: '15px', flexShrink: 0, accentColor: '#C4891A', cursor: 'pointer' }}
@@ -209,7 +214,14 @@ export default function SmsOptIn() {
                     </span>
                   </label>
 
-                  {/* Error */}
+                  {/* Consent notice (amber) */}
+                  {notice && (
+                    <p style={{ fontSize: '13px', fontWeight: 500, color: '#92400E', backgroundColor: '#FEF3C7', border: '1px solid #FDE68A', borderRadius: '6px', padding: '10px 14px', margin: 0, lineHeight: 1.5, ...dmSans }}>
+                      {notice}
+                    </p>
+                  )}
+
+                  {/* API/network error (red) */}
                   {error && (
                     <p style={{ fontSize: '13px', fontWeight: 500, color: '#DC2626', margin: 0, ...dmSans }}>
                       {error}

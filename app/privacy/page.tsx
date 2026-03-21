@@ -14,7 +14,19 @@ const sections = [
   },
   {
     heading: 'How We Use It',
-    body: 'Information you provide is used solely to send SMS deployment alerts, standby notices, and operational updates to opted-in contractors. We do not sell, rent, or share your personal data with third parties for marketing purposes. We share data only as necessary to deliver the SMS service — including with Twilio, our SMS delivery provider — and as required by law.',
+    body: 'Information you provide is used solely to send SMS deployment alerts, standby notices, operational updates, and periodic roster check-ins to opted-in contractors. The legal basis for processing your information is your explicit consent, provided at the time of form submission.',
+  },
+  {
+    heading: 'Mobile Information and SMS',
+    body: 'Mobile phone numbers and SMS consent data collected through this site will not be shared with third parties or affiliates for marketing or promotional purposes. This information is used exclusively to deliver the operational SMS communications you have consented to receive.',
+  },
+  {
+    heading: 'Third Party Service Providers',
+    body: 'We share data only as necessary to deliver the SMS service — including with Twilio, our SMS delivery provider — and as required by law. We do not sell or rent your personal data.',
+  },
+  {
+    heading: 'International Data Transfer',
+    body: 'Your data is stored and processed in the United States. By submitting the opt-in form, you acknowledge that your information may be processed in the US, where data protection laws may differ from those in your country of residence.',
   },
   {
     heading: 'Data Storage',
@@ -25,12 +37,12 @@ const sections = [
     body: (
       <>
         You may opt out of SMS messages at any time by replying{' '}
-        <strong style={{ color: '#0D1B2A', fontWeight: 600 }}>STOP</strong> to any message. To request deletion
-        of your personal data, contact us at{' '}
+        <strong style={{ color: '#0D1B2A', fontWeight: 600 }}>STOP</strong> to any message. To request access
+        to, correction of, or deletion of your personal data, contact us at{' '}
         <a href="mailto:gshirey@gmail.com" style={{ color: '#C4891A', textDecoration: 'underline' }}>
           gshirey@gmail.com
         </a>
-        . We will respond to verified deletion requests within a reasonable timeframe.
+        . We will respond to verified requests within a reasonable timeframe.
       </>
     ),
   },
@@ -39,6 +51,8 @@ const sections = [
     body: (
       <>
         Shirey Enterprise Group (SEG)
+        <br />
+        Louisa, Virginia
         <br />
         <a href="mailto:gshirey@gmail.com" style={{ color: '#C4891A', textDecoration: 'underline' }}>
           gshirey@gmail.com
@@ -61,28 +75,21 @@ export default function Privacy() {
           overflow: 'hidden',
         }}>
 
-          {/* Header zone */}
           <div style={{ padding: '28px 36px 24px', borderBottom: '1px solid #F3F4F6', backgroundColor: '#FAFAFA' }}>
             <h1 style={{ color: '#0D1B2A', fontSize: '28px', fontWeight: 700, lineHeight: 1.15, marginBottom: '6px', ...bc }}>
               Privacy Policy
             </h1>
             <p style={{ color: '#9CA3AF', fontSize: '12px', margin: 0, ...dm }}>
-              Shirey Enterprise Group &nbsp;·&nbsp; Effective March 2026
+              Shirey Enterprise Group (SEG) &nbsp;·&nbsp; Effective March 2026
             </p>
           </div>
 
-          {/* Content zone */}
           <div style={{ padding: '28px 36px 36px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
             {sections.map(({ heading, body }, i) => (
               <section key={i}>
                 <h2 style={{
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.07em',
-                  color: '#C4891A',
-                  marginBottom: '6px',
-                  ...dm,
+                  fontSize: '11px', fontWeight: 600, textTransform: 'uppercase',
+                  letterSpacing: '0.07em', color: '#C4891A', marginBottom: '6px', ...dm,
                 }}>
                   {heading}
                 </h2>

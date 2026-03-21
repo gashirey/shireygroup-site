@@ -13,12 +13,16 @@ const sections = [
     body: 'Shirey Enterprise Group (SEG) sends SMS messages exclusively to independent contractors who have voluntarily opted in to receive deployment alerts, standby notices, and operational updates. Messages relate to storm response and utility base camp events operated through our partner Recovery Logistics (RLI). You will never receive marketing or promotional messages through this program.',
   },
   {
+    heading: 'Mobile Data and Privacy',
+    body: 'Mobile phone numbers and SMS consent information collected through this program will not be shared with third parties, affiliates, or partner companies for marketing or promotional purposes. This information is used solely to deliver the operational SMS communications described in this policy.',
+  },
+  {
     heading: 'Message Frequency',
     body: 'Message frequency varies based on active field events. During inactive periods you may receive no messages for weeks at a time. During active deployment events you may receive multiple messages in a single day. All messages are operationally relevant — standby notices, mobilization alerts, stand-down confirmations, or periodic roster check-ins.',
   },
   {
     heading: 'How to Opt In',
-    body: 'Complete the opt-in form at shireyegroup.com/sms-opt-in. You must check the consent checkbox to enroll — it is never pre-checked. By submitting the form you acknowledge and agree to this policy.',
+    body: 'Complete the opt-in form at shireyegroup.com/sms-opt-in. The consent checkbox must be checked to receive SMS messages — it is never pre-checked. Submitting the form without checking the box will not enroll you in SMS communications.',
   },
   {
     heading: 'How to Opt Out',
@@ -60,25 +64,21 @@ export default function SmsPolicy() {
           overflow: 'hidden',
         }}>
 
-          {/* Header zone */}
           <div style={{ padding: '28px 36px 24px', borderBottom: '1px solid #F3F4F6', backgroundColor: '#FAFAFA' }}>
-            <h1 style={{ color: '#0D1B2A', fontSize: '28px', fontWeight: 700, lineHeight: 1.15, margin: 0, ...bc }}>
+            <h1 style={{ color: '#0D1B2A', fontSize: '28px', fontWeight: 700, lineHeight: 1.15, marginBottom: '6px', ...bc }}>
               SMS Communications Policy
             </h1>
+            <p style={{ color: '#9CA3AF', fontSize: '12px', margin: 0, ...dm }}>
+              Shirey Enterprise Group (SEG) &nbsp;·&nbsp; Effective March 2026
+            </p>
           </div>
 
-          {/* Content zone */}
           <div style={{ padding: '28px 36px 36px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
             {sections.map(({ heading, body }, i) => (
               <section key={i}>
                 <h2 style={{
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.07em',
-                  color: '#C4891A',
-                  marginBottom: '6px',
-                  ...dm,
+                  fontSize: '11px', fontWeight: 600, textTransform: 'uppercase',
+                  letterSpacing: '0.07em', color: '#C4891A', marginBottom: '6px', ...dm,
                 }}>
                   {heading}
                 </h2>
