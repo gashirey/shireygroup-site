@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@supabase/supabase-js'
 import twilio from 'twilio'
 
 const twilioClient = twilio(
@@ -7,6 +7,10 @@ const twilioClient = twilio(
 )
 
 export async function POST(req) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY
+  )
   const { first_name, last_name, phone, user_agent } = await req.json()
 
   if (!phone) {
