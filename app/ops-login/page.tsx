@@ -14,7 +14,7 @@ export default function OpsLoginPage() {
 
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   )
 
   async function handleSubmit(e: React.FormEvent) {
@@ -114,8 +114,8 @@ export default function OpsLoginPage() {
                 outline: 'none',
                 boxSizing: 'border-box',
               }}
-              onFocus={(e) => (e.target.style.borderColor = '#C4891A')}
-              onBlur={(e) => (e.target.style.borderColor = '#E5E7EB')}
+              onFocus={(e) => (e.currentTarget.style.borderColor = '#C4891A')}
+              onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
             />
           </div>
 
@@ -150,8 +150,8 @@ export default function OpsLoginPage() {
                 outline: 'none',
                 boxSizing: 'border-box',
               }}
-              onFocus={(e) => (e.target.style.borderColor = '#C4891A')}
-              onBlur={(e) => (e.target.style.borderColor = '#E5E7EB')}
+              onFocus={(e) => (e.currentTarget.style.borderColor = '#C4891A')}
+              onBlur={(e) => (e.currentTarget.style.borderColor = '#E5E7EB')}
             />
           </div>
 

@@ -8,11 +8,9 @@ export const metadata = {
 
 export default async function OpsLayout({ children }: { children: React.ReactNode }) {
   const user = await getServerUser()
-
   if (!user) {
-    redirect('/ops/login')
+    redirect('/ops-login')
   }
-
   return (
     <OpsShell userEmail={user.email ?? ''}>
       {children}

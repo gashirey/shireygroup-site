@@ -7,7 +7,7 @@ export async function proxy(req: NextRequest) {
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         getAll() {
@@ -26,11 +26,14 @@ export async function proxy(req: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  const isOpsRoute = req.nextUrl.pathname.startsWith('/ops')
-  const isLoginPage = req.nextUrl.pathname === '/ops/login'
+  const pathname = req.nextUrl.pathname
+  const isLoginPage = pathname === '/ops-login'
+  // `/ops-login` starts with `/ops` — exclude it so we don't redirect login → login forever.
+  const isOpsRoute =
+    !isLoginPage && (pathname.startsWith('/ops/') || pathname === '/ops')
 
-  if (isOpsRoute && !isLoginPage && !user) {
-    return NextResponse.redirect(new URL('/ops/login', req.url))
+  if (isOpsRoute && !user) {
+    return NextResponse.redirect(new URL('/ops-login', req.url))
   }
 
   if (isLoginPage && user) {
@@ -41,5 +44,5 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/ops/:path*'],
+  matcher: ['/ops/:path*', '/ops-login'],
 }

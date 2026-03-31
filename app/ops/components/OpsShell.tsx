@@ -27,12 +27,12 @@ export default function OpsShell({
 
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   )
 
   async function handleSignOut() {
     await supabase.auth.signOut()
-    router.push('/ops/login')
+    router.push('/ops-login')
     router.refresh()
   }
 
